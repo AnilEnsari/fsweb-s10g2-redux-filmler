@@ -24,7 +24,7 @@ const AddMovieForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addMovie({ ...movie, id: 12 }));
+    dispatch(addMovie({ ...movie, id: Date.now() }));
     push("/movies");
   };
 

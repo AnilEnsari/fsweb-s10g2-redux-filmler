@@ -12,7 +12,7 @@ const Movie = (props) => {
     push("/movies");
   };
 
-  const movies = useSelector((store) => store.movies);
+  const movies = useSelector((store) => store.movieReducer.movies);
   const movie = movies.find((movie) => movie.id === Number(id));
 
   return (
