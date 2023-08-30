@@ -12,9 +12,9 @@ const Movie = (props) => {
     dispatch(deleteMovie(movie.id));
     push("/movies");
   };
-  const favAdder = () => dispatch(addFavorite(movie));
   const movies = useSelector((store) => store.movieReducer.movies);
   const movie = movies.find((movie) => movie.id === Number(id));
+  const favAdder = () => dispatch(addFavorite(movie));
 
   return (
     <div className="bg-white rounded-md shadow flex-1">
