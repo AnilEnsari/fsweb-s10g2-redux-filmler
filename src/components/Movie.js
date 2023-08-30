@@ -2,19 +2,22 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { deleteMovie } from "../actions/movieActions";
-import { addFavorite } from "../actions/favoritesActions";
+import { addFavorite, removeFavorite } from "../actions/favoritesActions";
 
 const Movie = (props) => {
   const { id } = useParams();
   const { push } = useHistory();
   const dispatch = useDispatch();
-  const silHandler = () => {
-    dispatch(deleteMovie(movie.id));
-    push("/movies");
-  };
+
   const movies = useSelector((store) => store.movieReducer.movies);
   const movie = movies.find((movie) => movie.id === Number(id));
   const favAdder = () => dispatch(addFavorite(movie));
+  const silHandler = () => {
+    dispatch(deleteMovie(movie.id));
+    dispatch(removeFavorite(movie.id));
+    push("/movies");
+  };
+  const hideadd = useSelector((store) => store.favReducer.displayFavorites);
 
   return (
     <div className="bg-white rounded-md shadow flex-1">
@@ -51,12 +54,14 @@ const Movie = (props) => {
         >
           Sil
         </button>
-        <button
-          onClick={favAdder}
-          className="myButton bg-blue-600 hover:bg-blue-500 "
-        >
-          Favorilere ekle
-        </button>
+        {hideadd && (
+          <button
+            onClick={favAdder}
+            className="myButton bg-blue-600 hover:bg-blue-500 "
+          >
+            Favorilere ekle
+          </button>
+        )}
       </div>
     </div>
   );
